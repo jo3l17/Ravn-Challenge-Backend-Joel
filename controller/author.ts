@@ -12,63 +12,18 @@ export const author_controller = {
                     required: true
                 }]
             },
-            // group:'name'
         }).then((authors: any) => {
-            // authors.count.sort((a: any, b: any) => b.count - a.count);
-            // authors.rows.sort((a: any, b: any) => {
-            authors.sort((a: any, b: any) => {
-                let countA = 0;
-                let countB = 0;
-                a.books.forEach((book: any) => {
-                    book.sale_items.forEach(() => {
-                        countA++;
+            authors = JSON.parse(JSON.stringify(authors));
+            authors.forEach((author: any) => {
+                author.sales = 0
+                author.books.forEach((book: any) => {
+                    book.sale_items.forEach((book: any) => {
+                        author.sales++;
                     });
                 });
-                b.books.forEach((book: any) => {
-                    book.sale_items.forEach(() => {
-                        countB++;
-                    });
-                });
-                return countB - countA;
             });
-            // for (let i = 0; i < authors.length; i++) {
-            //     const element = authors[i];
-            //     element.sales = 0;
-            //     element.books.forEach((book: any) => {
-            //         book.sale_items.forEach(() => {
-            //             element.sales++;
-            //         });
-            //     });
-            // }
-            // authors.count.slice(limit);
-            // authors.rows = authors.rows.slice(0,limit)
+            authors.sort((a: any, b: any) => b.sales - a.sales)
             authors = authors.slice(0, limit)
-            
-            // let result = [...authors];
-            // result.map(obj=> ({ ...obj, count: 1 }))
-            // for (var i = 0, len = result.length; i < len; i++) {
-            //     result[i].global = true;
-            // }
-            // result.map(function (obj) {
-            //     console.log(obj.id)
-            // })
-            // var result = authors.map(function (post:any) {
-            //     var tmpPost = post.toObject();
-
-            //     // Add properties...
-            //     tmpPost.votetype = 1;
-
-            //     return tmpPost;
-            // });
-            // result.forEach((author:any) => {
-            //     author.count = 0;
-            //     author.books.forEach((book: any) => {
-            //         book.sale_items.forEach(() => {
-            //             author.count++;
-            //         });
-            //     });
-            //     console.log(author.count)
-            // });
             res.status(201).json({
                 message: 'Ok',
                 content: authors
