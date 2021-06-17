@@ -6,6 +6,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const puerto = process.env.PORT || 3700;
+// const HOST = process.env.HOST || 'localhost'
 app.use(bodyParser.urlencoded({ extended: false }))
     .use(bodyParser.json())
     .use((req, res, next) => {
@@ -16,10 +17,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
     next();
 })
     .use('/api/authors', author_1.author_router);
-// .use('/', (req: any, res: any) => { res.send('it works :v') });
+app.use('/', (req, res) => { res.send('it works :v'); });
 app.listen(puerto, () => {
     console.log(`server running in PORT ${puerto}`);
-    sequelize_1.sequelize.sync({ force: false }).then(() => {
+    sequelize_1.sequelize.sync({ force: false }).then((result) => {
+        console.log('-------------');
         console.log('database created');
     }).catch((error) => {
         console.log(error);

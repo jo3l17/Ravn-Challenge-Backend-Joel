@@ -1,0 +1,26 @@
+version: "3"
+services: 
+    nodejs:
+        build:
+            context: .
+        image: ravn_challenge
+        depends_on: 
+            - mysql
+        environment: 
+            - HOST=ravn_challenge_mysql
+            - MYSQL_HOST=ravn_challenge_mysql
+            - MYSQL_ROOT_PASSWORD=953945798Yo@
+            - MYSQL_PASS=953945798Yo@
+            - MYSQL_DB=ravn_challenge
+        volumes: 
+            - ./www/:/var/www/html/
+        ports: 
+            - "3700:3700"
+        container_name: ravn_challenge
+    mysql:
+        image: mysql:8.0
+        environment: 
+            - MYSQL_ROOT_PASSWORD=953945798Yo@
+            - MYSQL_PASSWORD=953945798Yo@
+            - MYSQL_DATABASE=ravn_challenge
+        container_name: ravn_challenge_mysql

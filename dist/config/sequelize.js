@@ -6,7 +6,7 @@ const author_1 = require("../model/author");
 const book_1 = require("../model/book");
 const sale_item_1 = require("../model/sale_item");
 exports.sequelize = new Sequelize('ravn_challenge', 'root', '953945798Yo@', {
-    host: 'localhost',
+    host: process.env.HOST,
     dialect: 'mysql',
     timezone: '-05:00',
     logging: console.log

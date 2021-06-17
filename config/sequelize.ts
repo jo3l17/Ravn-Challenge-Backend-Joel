@@ -3,7 +3,7 @@ import { author_model } from "../model/author";
 import { book_model } from "../model/book";
 import { sale_item_model } from "../model/sale_item";
 export const sequelize = new Sequelize('ravn_challenge', 'root', '953945798Yo@', {
-    host: 'localhost',
+    host: process.env.HOST,
     dialect: 'mysql',
     timezone: '-05:00',
     logging: console.log
