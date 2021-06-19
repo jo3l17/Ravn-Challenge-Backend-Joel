@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ravn-challenge-deployment
+  labels:
+    app: ravn_challenge
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ravn_challenge
+  template:
+    metadata:
+      labels:
+        app: ravn_challenge 
+    spec:
+      containers:
+      - name: ravn-challenge
+        image: ravn_challenge
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3700

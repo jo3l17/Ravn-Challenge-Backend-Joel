@@ -6,7 +6,7 @@ export const author_controller = {
         console.log(req.params.limit);
         if (Number.isInteger(req.params.limit)) {
             limit = parseInt(req.params.limit) || 10;
-        } else if(req.params.limit) {
+        } else if (req.params.limit) {
             console.log("The parameters given are invalid, please check");
             return res.status(500).json({
                 message: 'Error',
@@ -38,12 +38,41 @@ export const author_controller = {
                 message: 'Ok',
                 content: authors
             });
-        }).catch((err: any) => {
+        }).catch((err: Error) => {
             console.log("Error => " + err);
             return res.status(500).json({
                 message: 'Error',
                 content: 'Internal Server Error, check logs'
             });
         });
+    },
+    seed: (cb:Function) => {
+        const authors = [{
+            id:1,
+            name: "Juan",
+            date_of_birth: "1976-05-12"
+        },
+        {
+            id:2,
+            name: "John",
+            date_of_birth: "1980-01-01"
+        },
+        {
+            id:3,
+            name: "Pepe",
+            date_of_birth: "1970-05-04"
+        },
+        {
+            id:4,
+            name: "Lorelai Gilmore",
+            date_of_birth: "1990-04-05"
+        }]
+        Author.bulkCreate(authors, { ignoreDuplicates: true })
+            .then(result => {
+                cb(result);
+            }).catch((err: Error) => {
+            console.log("Error => " + err);
+            cb(err);
+        })
     }
 }

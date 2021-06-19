@@ -48,5 +48,34 @@ exports.author_controller = {
                 content: 'Internal Server Error, check logs'
             });
         });
+    },
+    seed: (cb) => {
+        const authors = [{
+                id: 1,
+                name: "Juan",
+                date_of_birth: "1976-05-12"
+            },
+            {
+                id: 2,
+                name: "John",
+                date_of_birth: "1980-01-01"
+            },
+            {
+                id: 3,
+                name: "Pepe",
+                date_of_birth: "1970-05-04"
+            },
+            {
+                id: 4,
+                name: "Lorelai Gilmore",
+                date_of_birth: "1990-04-05"
+            }];
+        sequelize_1.Author.bulkCreate(authors, { ignoreDuplicates: true })
+            .then(result => {
+            cb(result);
+        }).catch((err) => {
+            console.log("Error => " + err);
+            cb(err);
+        });
     }
 };
